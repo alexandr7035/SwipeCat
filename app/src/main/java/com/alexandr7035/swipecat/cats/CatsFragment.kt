@@ -4,16 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import com.alexandr7035.swipecat.R
-import com.alexandr7035.swipecat.app_core.Cat
+import com.alexandr7035.swipecat.data.remote.CatRemote
 import com.alexandr7035.swipecat.databinding.FragmentCatsBinding
 import com.yuyakaido.android.cardstackview.*
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class CatsFragment : Fragment(), CardStackListener {
 
     private val defaultCardsNumber = 5
@@ -23,7 +24,7 @@ class CatsFragment : Fragment(), CardStackListener {
 
     private lateinit var manager: CardStackLayoutManager
     private lateinit var cardsAdapter: CardsAdapter
-    private lateinit var catsLiveData: LiveData<List<Cat>>
+    private lateinit var catsLiveData: LiveData<List<CatRemote>>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentCatsBinding.inflate(inflater, container, false)

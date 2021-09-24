@@ -3,8 +3,7 @@ package com.alexandr7035.swipecat.cats
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.alexandr7035.swipecat.app_core.Cat
-import com.alexandr7035.swipecat.data.CatEntity
+import com.alexandr7035.swipecat.data.remote.CatRemote
 import com.alexandr7035.swipecat.databinding.ViewCatCardBinding
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
@@ -13,9 +12,9 @@ import timber.log.Timber
 
 class CardsAdapter: RecyclerView.Adapter<CardsAdapter.ViewHolder>() {
 
-    private var items: List<Cat> = emptyList()
+    private var items: List<CatRemote> = emptyList()
 
-    fun setItems(items: List<Cat>) {
+    fun setItems(items: List<CatRemote>) {
         this.items = items
         notifyDataSetChanged()
     }

@@ -1,4 +1,4 @@
-package com.alexandr7035.swipecat.app_core
+package com.alexandr7035.swipecat.data.remote
 
 import kotlin.math.floor
 
@@ -6,14 +6,14 @@ class RandomCatProviderImpl: RandomCatProvider {
 
     private val URL = "https://d2ph5fj80uercy.cloudfront.net"
 
-    override suspend fun getRandomCat(): Cat {
+    override suspend fun getRandomCat(): CatRemote {
         val url = getRandomCatUrl()
-        return Cat(url = url)
+        return CatRemote(url = url)
     }
 
-    override suspend fun getRandomCats(listSize: Int): List<Cat> {
+    override suspend fun getRandomCats(listSize: Int): List<CatRemote> {
 
-        val cats = ArrayList<Cat>()
+        val cats = ArrayList<CatRemote>()
 
         for (i in 1..listSize) {
             cats.add(getRandomCat())

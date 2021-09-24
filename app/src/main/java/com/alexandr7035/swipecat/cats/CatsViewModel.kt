@@ -4,21 +4,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alexandr7035.swipecat.app_core.Cat
-import com.alexandr7035.swipecat.app_core.RandomCatProviderImpl
+import com.alexandr7035.swipecat.data.Repository
+import com.alexandr7035.swipecat.data.local.CatEntity
+import com.alexandr7035.swipecat.data.remote.CatRemote
+import com.alexandr7035.swipecat.data.remote.RandomCatProviderImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import javax.inject.Inject
 
-class CatsViewModel : ViewModel() {
+@HiltViewModel
+class CatsViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     private val catsProvider = RandomCatProviderImpl()
-    private val catsLiveData = MutableLiveData<List<Cat>>()
-    private val likedCatsLiveData = MutableLiveData<List<Cat>>()
+    private val catsLiveData = MutableLiveData<List<CatRemote>>()
 
     // FIXME temp
     // repository with room cache will be added
-    private val likedCats = ArrayList<Cat>()
+    private val likedCats = ArrayList<CatRemote>()
 
 //    fun getCat(): Cat {
 //        return catsProvider.getRandomCat()
@@ -30,17 +33,17 @@ class CatsViewModel : ViewModel() {
         }
     }
 
-    fun getCatsLiveData(): LiveData<List<Cat>> {
+    fun getCatsLiveData(): LiveData<List<CatRemote>> {
         return catsLiveData
     }
 
-    fun likeCat(cat: Cat) {
-        // FIXME temp
-        likedCats.add(cat)
-        likedCatsLiveData.value = likedCats
+    fun likeCat(cat: CatRemote) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.likeCat(cat)
+        }
     }
 
-    fun getLikedCatsLiveData(): LiveData<List<Cat>> {
-        return likedCatsLiveData
+    fun getLikedCatsLiveData(): LiveData<List<CatEntity>> {
+        return repository.getLikedCatsLiveData()
     }
 }
