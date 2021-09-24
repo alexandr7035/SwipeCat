@@ -2,6 +2,7 @@ package com.alexandr7035.swipecat.di
 
 import android.app.Application
 import androidx.room.Room
+import com.alexandr7035.swipecat.data.AppPreferences
 import com.alexandr7035.swipecat.data.CatRemoteToLocalMapper
 import com.alexandr7035.swipecat.data.Repository
 import com.alexandr7035.swipecat.data.RepositoryImpl
@@ -56,6 +57,12 @@ class AppModule {
         mapper: CatRemoteToLocalMapper): Repository {
 
         return RepositoryImpl(catsProvider, dao, mapper)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSharedPrefs(application: Application): AppPreferences {
+        return AppPreferences(application)
     }
 
 }
