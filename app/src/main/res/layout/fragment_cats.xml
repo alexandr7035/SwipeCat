@@ -73,13 +73,13 @@
         app:layout_constraintBottom_toBottomOf="@id/refreshButton"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/FabAction"
         android:id="@+id/refreshButton"
-        android:src="@drawable/ic_refresh"
+        style="@style/FabAction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/ic_refresh"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardsView"
         app:layout_constraintEnd_toStartOf="@+id/likeButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/skipButton" />
