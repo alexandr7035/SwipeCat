@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData
 import com.alexandr7035.swipecat.R
 import com.alexandr7035.swipecat.data.remote.CatRemote
 import com.alexandr7035.swipecat.databinding.FragmentCatsBinding
+import com.alexandr7035.swipecat.liked.LikedCatsFragment
 import com.yuyakaido.android.cardstackview.*
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -78,6 +79,14 @@ class CatsFragment : Fragment(), CardStackListener {
                 .build()
             manager.setSwipeAnimationSetting(setting)
             binding?.cardsView?.swipe()
+        }
+
+        binding?.likesButton?.setOnClickListener {
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentsHost, LikedCatsFragment.newInstance())
+                .commit()
+
         }
 
         // Fetch on start

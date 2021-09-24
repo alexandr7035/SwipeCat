@@ -1,0 +1,49 @@
+package com.alexandr7035.swipecat.liked
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.alexandr7035.swipecat.cats.CatsViewModel
+import com.alexandr7035.swipecat.databinding.FragmentLikedCatsBinding
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class LikedCatsFragment: Fragment() {
+
+    // FIXME viewmodel
+    private val viewModel by viewModels<CatsViewModel>()
+
+    private var binding: FragmentLikedCatsBinding? = null
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentLikedCatsBinding.inflate(inflater, container, false)
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val adapter = LikedCatsAdapter()
+        binding?.recycler?.layoutManager = LinearLayoutManager(requireContext())
+        binding?.recycler?.adapter = adapter
+
+        viewModel.getLikedCatsLiveData().observe(viewLifecycleOwner, { likedCatsList ->
+            adapter.setItems(likedCatsList)
+        })
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        binding = null
+    }
+
+    companion object {
+        fun newInstance() = LikedCatsFragment()
+    }
+}
