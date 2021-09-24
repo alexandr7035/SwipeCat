@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alexandr7035.swipecat">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".app_core.SwipeCatsApp"
         android:allowBackup="false"
