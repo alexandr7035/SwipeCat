@@ -6,12 +6,12 @@ class RandomCatProviderImpl: RandomCatProvider {
 
     private val URL = "https://d2ph5fj80uercy.cloudfront.net"
 
-    override fun getRandomCat(): Cat {
+    override suspend fun getRandomCat(): Cat {
         val url = getRandomCatUrl()
         return Cat(url = url)
     }
 
-    override fun getRandomCats(listSize: Int): List<Cat> {
+    override suspend fun getRandomCats(listSize: Int): List<Cat> {
 
         val cats = ArrayList<Cat>()
 
