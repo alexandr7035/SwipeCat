@@ -4,28 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.LinearInterpolator
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DefaultItemAnimator
-import com.alexandr7035.swipecat.data.CatEntity
+import androidx.lifecycle.LiveData
+import com.alexandr7035.swipecat.R
+import com.alexandr7035.swipecat.app_core.Cat
 import com.alexandr7035.swipecat.databinding.FragmentCatsBinding
-import com.yuyakaido.android.cardstackview.CardStackLayoutManager
-import com.yuyakaido.android.cardstackview.Direction
-import com.yuyakaido.android.cardstackview.StackFrom
-import com.yuyakaido.android.cardstackview.SwipeableMethod
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
+import com.yuyakaido.android.cardstackview.*
 import timber.log.Timber
-import java.net.URI
 
-class CatsFragment : Fragment() {
+class CatsFragment : Fragment(), CardStackListener {
+
+    private val defaultCardsNumber = 10
 
     private val viewModel by viewModels<CatsViewModel>()
     private var binding: FragmentCatsBinding? = null
 
     private lateinit var manager: CardStackLayoutManager
+    private lateinit var cardsAdapter: CardsAdapter
+    private lateinit var catsLiveData: LiveData<List<Cat>>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentCatsBinding.inflate(inflater, container, false)
@@ -35,36 +32,54 @@ class CatsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = CardsAdapter()
+        // Core for cards view
+        cardsAdapter = CardsAdapter()
+        manager = CardStackLayoutManager(requireContext(), this)
+        setupCardStackView()
 
-        adapter.setItems(viewModel.getCats(10))
+        catsLiveData = viewModel.getCatsLiveData()
+        catsLiveData.observe(viewLifecycleOwner, { catsList ->
+            Timber.tag("CATS_DATA").d("updated cats $catsList")
+            cardsAdapter.setItems(catsList)
+            binding?.cardsCountView?.text = getString(R.string.cards_number, 0, catsList.size)
+        })
 
-
-        manager = CardStackLayoutManager(requireContext())
-
-        binding?.cardsView?.adapter = adapter
-
-        manager.setStackFrom(StackFrom.TopAndLeft)
-        manager.setVisibleCount(3)
-        manager.setTranslationInterval(0.0f)
-//        manager.setScaleInterval(0.95f)
-//        manager.setSwipeThreshold(0.3f)
-        manager.setMaxDegree(0f)
-        manager.setDirections(Direction.HORIZONTAL)
-        manager.setCanScrollHorizontal(true)
-        manager.setCanScrollVertical(false)
-        manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
-        manager.setOverlayInterpolator(LinearInterpolator())
-        binding!!.cardsView.layoutManager = manager
-        binding!!.cardsView.adapter = adapter
-        binding!!.cardsView.itemAnimator.apply {
-            if (this is DefaultItemAnimator) {
-                supportsChangeAnimations = false
-            }
+        binding?.refreshButton?.setOnClickListener {
+            viewModel.fetchCats(defaultCardsNumber)
         }
 
+        // Fetch on start
+        viewModel.fetchCats(defaultCardsNumber)
     }
 
+    private fun setupCardStackView() {
+
+        Timber.d("Adapter is $cardsAdapter")
+
+        manager.apply {
+
+            setStackFrom(StackFrom.None)
+            manager.setVisibleCount(3)
+
+            // Disable rotation
+            setMaxDegree(0f)
+
+            // Allow only horizontal swipes
+            // FIXME that's for correct card sizing and wrapping
+            // FIXME find better solution later
+            manager.setDirections(Direction.HORIZONTAL)
+            manager.setCanScrollHorizontal(true)
+            manager.setCanScrollVertical(false)
+
+            // TODO add automatic with delay later
+            setSwipeableMethod(SwipeableMethod.Manual)
+        }
+
+        binding?.cardsView?.apply {
+            layoutManager = manager
+            adapter = cardsAdapter
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -73,6 +88,48 @@ class CatsFragment : Fragment() {
 
     companion object {
         fun newInstance() = CatsFragment()
+    }
+
+
+    // Cards callbacks
+    override fun onCardDragging(direction: Direction?, ratio: Float) {
+
+    }
+
+    override fun onCardSwiped(direction: Direction?) {
+
+    }
+
+    override fun onCardRewound() {
+
+    }
+
+    override fun onCardCanceled() {
+
+    }
+
+    override fun onCardAppeared(view: View?, position: Int) {
+        val totalCards = catsLiveData.value?.size
+
+        if (totalCards != null) {
+            // +1 as numeration starts from 0
+            updateCardsCounter(position + 1, totalCards)
+        }
+    }
+
+    override fun onCardDisappeared(view: View?, position: Int) {
+        val totalCards = catsLiveData.value?.size
+
+        if (totalCards != null) {
+            // When the cards ran out
+            if (position + 1 == totalCards) {
+                updateCardsCounter(0, 0)
+            }
+        }
+    }
+
+    private fun updateCardsCounter(currentCard: Int, totalCards: Int) {
+        binding?.cardsCountView?.text = getString(R.string.cards_number, currentCard, totalCards)
     }
 
 }

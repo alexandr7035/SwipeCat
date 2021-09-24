@@ -17,6 +17,7 @@ class CardsAdapter: RecyclerView.Adapter<CardsAdapter.ViewHolder>() {
 
     fun setItems(items: List<Cat>) {
         this.items = items
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
