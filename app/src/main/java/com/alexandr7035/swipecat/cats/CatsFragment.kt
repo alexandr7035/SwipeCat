@@ -44,6 +44,10 @@ class CatsFragment : Fragment(), CardStackListener {
             binding?.cardsCountView?.text = getString(R.string.cards_number, 0, catsList.size)
         })
 
+        viewModel.getLikedCatsLiveData().observe(viewLifecycleOwner, {
+            binding?.likesCountView?.text = it.size.toString()
+        })
+
         binding?.refreshButton?.setOnClickListener {
             viewModel.fetchCats(defaultCardsNumber)
         }
@@ -96,7 +100,12 @@ class CatsFragment : Fragment(), CardStackListener {
 
     }
 
-    override fun onCardSwiped(direction: Direction?) {
+    override fun onCardSwiped(direction: Direction) {
+        Timber.tag("SWIPE").d("card swiped ${manager.topPosition}")
+
+        if (direction == Direction.Right) {
+            viewModel.likeCat(catsLiveData.value!![manager.topPosition])
+        }
 
     }
 

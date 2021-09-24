@@ -14,6 +14,11 @@ class CatsViewModel : ViewModel() {
 
     private val catsProvider = RandomCatProviderImpl()
     private val catsLiveData = MutableLiveData<List<Cat>>()
+    private val likedCatsLiveData = MutableLiveData<List<Cat>>()
+
+    // FIXME temp
+    // repository with room cache will be added
+    private val likedCats = ArrayList<Cat>()
 
 //    fun getCat(): Cat {
 //        return catsProvider.getRandomCat()
@@ -27,5 +32,15 @@ class CatsViewModel : ViewModel() {
 
     fun getCatsLiveData(): LiveData<List<Cat>> {
         return catsLiveData
+    }
+
+    fun likeCat(cat: Cat) {
+        // FIXME temp
+        likedCats.add(cat)
+        likedCatsLiveData.value = likedCats
+    }
+
+    fun getLikedCatsLiveData(): LiveData<List<Cat>> {
+        return likedCatsLiveData
     }
 }
