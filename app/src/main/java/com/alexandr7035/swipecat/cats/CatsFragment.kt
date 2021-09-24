@@ -15,7 +15,7 @@ import timber.log.Timber
 
 class CatsFragment : Fragment(), CardStackListener {
 
-    private val defaultCardsNumber = 10
+    private val defaultCardsNumber = 5
 
     private val viewModel by viewModels<CatsViewModel>()
     private var binding: FragmentCatsBinding? = null
@@ -42,6 +42,10 @@ class CatsFragment : Fragment(), CardStackListener {
             Timber.tag("CATS_DATA").d("updated cats $catsList")
             cardsAdapter.setItems(catsList)
             binding?.cardsCountView?.text = getString(R.string.cards_number, 0, catsList.size)
+
+            // Make action buttons visible if were hidden
+            binding?.likeButton?.isEnabled = true
+            binding?.skipButton?.isEnabled = true
         })
 
         viewModel.getLikedCatsLiveData().observe(viewLifecycleOwner, {
@@ -108,6 +112,15 @@ class CatsFragment : Fragment(), CardStackListener {
             viewModel.likeCat(catsLiveData.value!![manager.topPosition-1])
         }
 
+        // Disable action buttons when swiped all cards
+        val totalCards = catsLiveData.value!!.size
+
+        if (manager.topPosition == totalCards) {
+            Timber.tag("SWIPE").d("swiped last card")
+
+            binding?.likeButton?.isEnabled = false
+            binding?.skipButton?.isEnabled = false
+        }
     }
 
     override fun onCardRewound() {
