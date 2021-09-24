@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id "kotlin-kapt"
+    id "dagger.hilt.android.plugin"
 }
 
 android {
@@ -55,4 +57,13 @@ dependencies {
 
     // Picasso for images
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Hilt DI
+    implementation "com.google.dagger:hilt-android:2.38.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.38.1"
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes true
 }
