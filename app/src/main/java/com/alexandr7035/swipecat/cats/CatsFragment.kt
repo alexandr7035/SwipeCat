@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
@@ -52,8 +53,30 @@ class CatsFragment : Fragment(), CardStackListener {
             binding?.likesCountView?.text = it.size.toString()
         })
 
+
+        // Action buttons
         binding?.refreshButton?.setOnClickListener {
             viewModel.fetchCats(defaultCardsNumber)
+        }
+
+        binding?.likeButton?.setOnClickListener {
+            Timber.tag("SWIPE").d("manual SWIPE RIGHT - like")
+            val setting = SwipeAnimationSetting.Builder()
+                .setDirection(Direction.Right)
+                .setDuration(Duration.Normal.duration)
+                .build()
+            manager.setSwipeAnimationSetting(setting)
+            binding?.cardsView?.swipe()
+        }
+
+        binding?.skipButton?.setOnClickListener {
+            Timber.tag("SWIPE").d("manual SWIPE LEFT - skip")
+            val setting = SwipeAnimationSetting.Builder()
+                .setDirection(Direction.Left)
+                .setDuration(Duration.Normal.duration)
+                .build()
+            manager.setSwipeAnimationSetting(setting)
+            binding?.cardsView?.swipe()
         }
 
         // Fetch on start
@@ -80,7 +103,7 @@ class CatsFragment : Fragment(), CardStackListener {
             manager.setCanScrollVertical(false)
 
             // TODO add automatic with delay later
-            setSwipeableMethod(SwipeableMethod.Manual)
+            setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
         }
 
         binding?.cardsView?.apply {
