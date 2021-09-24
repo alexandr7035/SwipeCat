@@ -37,7 +37,7 @@ class CatsFragment : Fragment() {
 
         val adapter = CardsAdapter()
 
-        adapter.setItems(viewModel.getCats(100))
+        adapter.setItems(viewModel.getCats(10))
 
 
         manager = CardStackLayoutManager(requireContext())
