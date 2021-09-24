@@ -101,10 +101,11 @@ class CatsFragment : Fragment(), CardStackListener {
     }
 
     override fun onCardSwiped(direction: Direction) {
-        Timber.tag("SWIPE").d("card swiped ${manager.topPosition}")
+        Timber.tag("SWIPE").d("card swiped to ${manager.topPosition}")
 
         if (direction == Direction.Right) {
-            viewModel.likeCat(catsLiveData.value!![manager.topPosition])
+            // Add previous card to favourites
+            viewModel.likeCat(catsLiveData.value!![manager.topPosition-1])
         }
 
     }
