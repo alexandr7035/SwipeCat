@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
+import com.alexandr7035.swipecat.MainActivity
 import com.alexandr7035.swipecat.R
 import com.alexandr7035.swipecat.data.remote.CatRemote
 import com.alexandr7035.swipecat.databinding.FragmentCatsBinding
@@ -82,12 +83,10 @@ class CatsFragment : Fragment(), CardStackListener {
         }
 
         binding?.likesButton?.setOnClickListener {
-
-            requireActivity().supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentsHost, LikedCatsFragment.newInstance())
-                .addToBackStack(null)
-                .commit()
-
+            (requireActivity() as MainActivity).getNavigation().add(
+                fragment = LikedCatsFragment.newInstance(),
+                allowGoBack = true
+            )
         }
 
         // Fetch on start
