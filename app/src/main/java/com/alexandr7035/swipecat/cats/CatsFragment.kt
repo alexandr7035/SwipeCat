@@ -84,7 +84,8 @@ class CatsFragment : Fragment(), CardStackListener {
         binding?.likesButton?.setOnClickListener {
 
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentsHost, LikedCatsFragment.newInstance())
+                .add(R.id.fragmentsHost, LikedCatsFragment.newInstance())
+                .addToBackStack(null)
                 .commit()
 
         }

@@ -12,6 +12,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="toolbarNavigationButtonStyle">@style/ToolbarNavIconStyle</item>
+
     </style>
 
     <style name="FabAction" parent="Widget.Design.FloatingActionButton">
@@ -22,5 +25,9 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ToolbarNavIconStyle" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="tint">@color/white</item>
     </style>
 </resources>

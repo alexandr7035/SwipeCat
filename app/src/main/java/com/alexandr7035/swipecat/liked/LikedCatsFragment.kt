@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexandr7035.swipecat.R
+import com.alexandr7035.swipecat.cats.CatsFragment
 import com.alexandr7035.swipecat.cats.CatsViewModel
 import com.alexandr7035.swipecat.data.local.CatEntity
 import com.alexandr7035.swipecat.databinding.FragmentLikedCatsBinding
@@ -41,6 +42,10 @@ class LikedCatsFragment: Fragment(), LikedCatsAdapter.RecyclerDeleteItemClickLis
         })
 
         binding?.toolbar?.inflateMenu(R.menu.menu_liked_cats_toolbar)
+
+        binding?.toolbar?.setNavigationOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
 
         binding?.toolbar?.setOnMenuItemClickListener { item ->
 
