@@ -25,6 +25,6 @@ class RepositoryImpl @Inject constructor(
     }
 
     override suspend fun removeCatLike(cat: CatEntity) {
-        // TODO implement later
+        dao.deleteCat(cat)
     }
 }

@@ -18,6 +18,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/deleteButton"
             android:clickable="true"
             android:layout_gravity="end"
             android:layout_marginTop="10dp"

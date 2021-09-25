@@ -43,6 +43,11 @@ class CatsViewModel @Inject constructor(
         return repository.getLikedCatsLiveData()
     }
 
+    fun removeLikedCat(cat: CatEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.removeCatLike(cat)
+        }
+    }
 
     fun getLikedRecyclerMode(): String {
         return appPreferences.likesRecyclerMode!!

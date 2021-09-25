@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexandr7035.swipecat.R
 import com.alexandr7035.swipecat.cats.CatsViewModel
+import com.alexandr7035.swipecat.data.local.CatEntity
 import com.alexandr7035.swipecat.databinding.FragmentLikedCatsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class LikedCatsFragment: Fragment() {
+class LikedCatsFragment: Fragment(), LikedCatsAdapter.RecyclerDeleteItemClickListener {
 
     // FIXME viewmodel
     private val viewModel by viewModels<CatsViewModel>()
@@ -31,7 +32,7 @@ class LikedCatsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = LikedCatsAdapter()
+        adapter = LikedCatsAdapter(this)
         binding?.recycler?.layoutManager = GridLayoutManager(requireContext(), 2)
         binding?.recycler?.adapter = adapter
 
@@ -72,13 +73,6 @@ class LikedCatsFragment: Fragment() {
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        binding = null
-    }
-
-
     private fun setupLinearRecyclerMode() {
         binding?.recycler?.adapter = adapter
         binding?.recycler?.layoutManager = LinearLayoutManager(requireContext())
@@ -101,7 +95,20 @@ class LikedCatsFragment: Fragment() {
         viewModel.saveLikedRecyclerMode(getString(R.string.shared_pref_likes_recycler_mode_grid))
     }
 
+    override fun deleteItemClicked(cat: CatEntity) {
+        Timber.tag("RECYCLER").d("delete item ${cat.id}")
+
+        viewModel.removeLikedCat(cat)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        binding = null
+    }
+
     companion object {
         fun newInstance() = LikedCatsFragment()
     }
+
 }

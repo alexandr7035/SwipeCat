@@ -1,6 +1,7 @@
 package com.alexandr7035.swipecat.liked
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alexandr7035.swipecat.cats.CardsAdapter
@@ -13,7 +14,7 @@ import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import timber.log.Timber
 
-class LikedCatsAdapter : RecyclerView.Adapter<LikedCatsAdapter.ViewHolder>() {
+class LikedCatsAdapter(private val deleteItemClickListener: RecyclerDeleteItemClickListener) : RecyclerView.Adapter<LikedCatsAdapter.ViewHolder>() {
 
     private var items: List<CatEntity> = emptyList()
 
@@ -32,8 +33,6 @@ class LikedCatsAdapter : RecyclerView.Adapter<LikedCatsAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Timber.tag("RECYCLER LIKED").d("onBInd called ${items[position]}")
-
         Picasso.get()
             .load(items[position].url)
             .memoryPolicy(MemoryPolicy.NO_CACHE)
@@ -41,6 +40,21 @@ class LikedCatsAdapter : RecyclerView.Adapter<LikedCatsAdapter.ViewHolder>() {
             .into(holder.binding.image)
     }
 
-    class ViewHolder(val binding: ViewLikedCatCardBinding): RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ViewLikedCatCardBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+        init {
+            binding.deleteButton.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View) {
+            deleteItemClickListener.deleteItemClicked(items[adapterPosition])
+            notifyItemRemoved(adapterPosition)
+        }
+
+    }
+
+    interface RecyclerDeleteItemClickListener {
+        fun deleteItemClicked(cat: CatEntity)
+    }
 
 }
