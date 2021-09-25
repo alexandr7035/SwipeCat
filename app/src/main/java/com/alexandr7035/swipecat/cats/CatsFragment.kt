@@ -18,7 +18,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class CatsFragment : Fragment(), CardStackListener {
 
-    private val defaultCardsNumber = 5
+    private val defaultCardsNumber = 50
 
     private val viewModel by viewModels<CatsViewModel>()
     private var binding: FragmentCatsBinding? = null
