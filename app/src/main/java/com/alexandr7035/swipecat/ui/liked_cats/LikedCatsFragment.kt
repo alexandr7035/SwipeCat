@@ -54,14 +54,23 @@ class LikedCatsFragment: Fragment(), LikedCatsAdapter.RecyclerItemClickListener 
 
         binding?.toolbar?.setOnMenuItemClickListener { item ->
 
+            // Do not use findFirstCompletelyVisibleItemPosition()
+            // as none of pictures might be fully visible in linear mode
+            // because of its size
             when (item.itemId) {
                 R.id.item_linear_view -> {
-                    setupLinearRecyclerMode()
+                    // Get position in current layoutmanager
+                    val position = (binding?.recycler?.layoutManager as GridLayoutManager).findFirstVisibleItemPosition()
+
+                    setupLinearRecyclerMode(position)
                     true
                 }
 
                 R.id.item_grid_view -> {
-                    setupGridRecyclerMode()
+                    // Get position in current layoutmanager
+                    val position = (binding?.recycler?.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+
+                    setupGridRecyclerMode(position)
                     true
                 }
 
@@ -83,7 +92,7 @@ class LikedCatsFragment: Fragment(), LikedCatsAdapter.RecyclerItemClickListener 
     }
 
 
-    private fun setupLinearRecyclerMode() {
+    private fun setupLinearRecyclerMode(position: Int = 0) {
         binding?.recycler?.adapter = adapter
         binding?.recycler?.layoutManager = LinearLayoutManager(requireContext())
 
@@ -91,16 +100,20 @@ class LikedCatsFragment: Fragment(), LikedCatsAdapter.RecyclerItemClickListener 
         binding?.toolbar?.menu?.findItem(R.id.item_linear_view)?.isVisible = false
         binding?.toolbar?.menu?.findItem(R.id.item_grid_view)?.isVisible = true
 
+        binding?.recycler?.scrollToPosition(position)
+
         viewModel.saveLikedRecyclerMode(getString(R.string.shared_pref_likes_recycler_mode_linear))
     }
 
-    private fun setupGridRecyclerMode() {
+    private fun setupGridRecyclerMode(position: Int = 0) {
         binding?.recycler?.adapter = adapter
         binding?.recycler?.layoutManager = GridLayoutManager(requireContext(), 2)
 
         // Change item
         binding?.toolbar?.menu?.findItem(R.id.item_linear_view)?.isVisible = true
         binding?.toolbar?.menu?.findItem(R.id.item_grid_view)?.isVisible = false
+
+        binding?.recycler?.scrollToPosition(position)
 
         viewModel.saveLikedRecyclerMode(getString(R.string.shared_pref_likes_recycler_mode_grid))
     }
