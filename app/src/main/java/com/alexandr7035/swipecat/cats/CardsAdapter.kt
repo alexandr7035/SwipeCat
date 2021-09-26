@@ -1,13 +1,14 @@
 package com.alexandr7035.swipecat.cats
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.alexandr7035.swipecat.R
 import com.alexandr7035.swipecat.data.remote.CatRemote
 import com.alexandr7035.swipecat.databinding.ViewCatCardBinding
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import timber.log.Timber
 
 class CardsAdapter: RecyclerView.Adapter<CardsAdapter.ViewHolder>() {
@@ -31,12 +32,12 @@ class CardsAdapter: RecyclerView.Adapter<CardsAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         Timber.tag("RECYCLER").d("onBInd called ${items[position]}")
+        val context = (holder.binding.root as View).context
 
-//        holder.binding.text.text = items[position].pos.toString()
-        Picasso.get()
+        Glide.with(context)
             .load(items[position].url)
-            .memoryPolicy(MemoryPolicy.NO_CACHE)
-            .networkPolicy(NetworkPolicy.NO_STORE)
+            .placeholder(R.drawable.background_rounded_white)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(holder.binding.image)
     }
 

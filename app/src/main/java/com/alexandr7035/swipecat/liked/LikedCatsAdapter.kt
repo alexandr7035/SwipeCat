@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexandr7035.swipecat.R
 import com.alexandr7035.swipecat.data.local.CatEntity
 import com.alexandr7035.swipecat.databinding.ViewLikedCatCardBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import java.io.FileNotFoundException
 
 class LikedCatsAdapter(private val deleteItemClickListener: RecyclerDeleteItemClickListener) : RecyclerView.Adapter<LikedCatsAdapter.ViewHolder>() {
@@ -35,16 +37,12 @@ class LikedCatsAdapter(private val deleteItemClickListener: RecyclerDeleteItemCl
         // Get context of item view
         val context = (holder.binding.root.rootView as View).context
 
-        try {
-            val inputStream = context.contentResolver.openInputStream(Uri.parse(items[position].url))
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            holder.binding.image.setImageBitmap(bitmap)
-        }
-        // If file with the uri was deleted by hand for some reason
-        // Unlikely case, but we must handle
-        catch (e: FileNotFoundException) {
-            holder.binding.image.setImageDrawable(ContextCompat.getDrawable(context,  R.drawable.background_rounded_white))
-        }
+        Glide.with(context)
+            .load(items[position].url)
+            .placeholder(R.drawable.background_rounded_white)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .into(holder.binding.image)
+
     }
 
     inner class ViewHolder(val binding: ViewLikedCatCardBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener {
