@@ -3,7 +3,6 @@ package com.alexandr7035.swipecat.di
 import android.app.Application
 import androidx.room.Room
 import com.alexandr7035.swipecat.data.AppPreferences
-import com.alexandr7035.swipecat.data.CatRemoteToLocalMapper
 import com.alexandr7035.swipecat.data.Repository
 import com.alexandr7035.swipecat.data.RepositoryImpl
 import com.alexandr7035.swipecat.data.local.CatsDB
@@ -47,18 +46,11 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideMapper(): CatRemoteToLocalMapper {
-        return CatRemoteToLocalMapper()
-    }
-
-    @Provides
-    @Singleton
     fun provideRepository(
         catsProvider: RandomCatProvider,
         dao: LikedCatsDao,
-        imageManager: ImageManager,
-        mapper: CatRemoteToLocalMapper): Repository {
-        return RepositoryImpl(catsProvider, dao, imageManager, mapper)
+        imageManager: ImageManager): Repository {
+        return RepositoryImpl(catsProvider, dao, imageManager)
     }
 
     @Provides

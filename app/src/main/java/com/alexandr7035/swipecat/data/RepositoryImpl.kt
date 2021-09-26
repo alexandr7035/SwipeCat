@@ -17,8 +17,7 @@ import javax.inject.Inject
 class RepositoryImpl @Inject constructor(
     private val catsProvider: RandomCatProvider,
     private val dao: LikedCatsDao,
-    private val imageManager: ImageManager,
-    private val catsMapper: CatRemoteToLocalMapper): Repository {
+    private val imageManager: ImageManager): Repository {
 
     override suspend fun getRandomCats(): List<CatRemote> {
         return catsProvider.getRandomCats()
@@ -30,7 +29,6 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun likeCat(cat: CatRemote) {
         val uri = imageManager.saveImage(cat.url)
-        // Fixme: use mapper
         val catEntity = CatEntity(imageLocalUri = uri.toString())
         dao.likeCat(catEntity)
     }
