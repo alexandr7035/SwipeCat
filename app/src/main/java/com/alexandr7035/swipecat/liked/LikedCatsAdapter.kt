@@ -1,18 +1,16 @@
 package com.alexandr7035.swipecat.liked
 
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.alexandr7035.swipecat.cats.CardsAdapter
+import com.alexandr7035.swipecat.R
 import com.alexandr7035.swipecat.data.local.CatEntity
-import com.alexandr7035.swipecat.data.remote.CatRemote
-import com.alexandr7035.swipecat.databinding.ViewCatCardBinding
 import com.alexandr7035.swipecat.databinding.ViewLikedCatCardBinding
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
-import com.squareup.picasso.Picasso
-import timber.log.Timber
+import java.io.FileNotFoundException
 
 class LikedCatsAdapter(private val deleteItemClickListener: RecyclerDeleteItemClickListener) : RecyclerView.Adapter<LikedCatsAdapter.ViewHolder>() {
 
@@ -33,11 +31,20 @@ class LikedCatsAdapter(private val deleteItemClickListener: RecyclerDeleteItemCl
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Picasso.get()
-            .load(items[position].url)
-            .memoryPolicy(MemoryPolicy.NO_CACHE)
-            .networkPolicy(NetworkPolicy.NO_STORE)
-            .into(holder.binding.image)
+
+        // Get context of item view
+        val context = (holder.binding.root.rootView as View).context
+
+        try {
+            val inputStream = context.contentResolver.openInputStream(Uri.parse(items[position].url))
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            holder.binding.image.setImageBitmap(bitmap)
+        }
+        // If file with the uri was deleted by hand for some reason
+        // Unlikely case, but we must handle
+        catch (e: FileNotFoundException) {
+            holder.binding.image.setImageDrawable(ContextCompat.getDrawable(context,  R.drawable.background_rounded_white))
+        }
     }
 
     inner class ViewHolder(val binding: ViewLikedCatCardBinding): RecyclerView.ViewHolder(binding.root), View.OnClickListener {
