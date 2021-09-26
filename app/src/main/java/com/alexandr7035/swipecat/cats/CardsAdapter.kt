@@ -36,7 +36,7 @@ class CardsAdapter: RecyclerView.Adapter<CardsAdapter.ViewHolder>() {
 
         Glide.with(context)
             .load(items[position].url)
-            .placeholder(R.drawable.background_rounded_white)
+            .placeholder(R.drawable.background_image_placeholder)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(holder.binding.image)
     }
