@@ -29,7 +29,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_heart"
-            android:background="@drawable/background_rounded_white"
+            android:background="@drawable/background_rounded_unlike"
             app:tint="@color/color_heart_button" />
 
     </FrameLayout>
