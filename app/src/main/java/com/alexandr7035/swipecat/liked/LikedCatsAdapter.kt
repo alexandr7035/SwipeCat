@@ -1,20 +1,17 @@
 package com.alexandr7035.swipecat.liked
 
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alexandr7035.swipecat.R
 import com.alexandr7035.swipecat.data.local.CatEntity
 import com.alexandr7035.swipecat.databinding.ViewLikedCatCardBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import java.io.FileNotFoundException
+import timber.log.Timber
 
-class LikedCatsAdapter(private val deleteItemClickListener: RecyclerDeleteItemClickListener) : RecyclerView.Adapter<LikedCatsAdapter.ViewHolder>() {
+class LikedCatsAdapter(private val itemClickListener: RecyclerItemClickListener) : RecyclerView.Adapter<LikedCatsAdapter.ViewHolder>() {
 
     private var items: List<CatEntity> = emptyList()
 
@@ -49,17 +46,35 @@ class LikedCatsAdapter(private val deleteItemClickListener: RecyclerDeleteItemCl
 
         init {
             binding.deleteButton.setOnClickListener(this)
+            binding.root.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {
-            deleteItemClickListener.deleteItemClicked(items[adapterPosition])
-            notifyItemRemoved(adapterPosition)
+
+            Timber.d("clicked ${v.id}")
+
+            when (v.id) {
+
+                R.id.card -> {
+                    Timber.d("image clicked")
+                    itemClickListener.itemImageClicked(items[adapterPosition])
+                }
+
+                // Delete button
+                R.id.deleteButton -> {
+                    itemClickListener.deleteItemClicked(items[adapterPosition])
+                    notifyItemRemoved(adapterPosition)
+                }
+            }
+
         }
 
     }
 
-    interface RecyclerDeleteItemClickListener {
+    interface RecyclerItemClickListener {
         fun deleteItemClicked(cat: CatEntity)
+
+        fun itemImageClicked(cat: CatEntity)
     }
 
 }
