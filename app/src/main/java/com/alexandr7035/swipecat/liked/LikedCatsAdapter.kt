@@ -38,7 +38,7 @@ class LikedCatsAdapter(private val deleteItemClickListener: RecyclerDeleteItemCl
         val context = (holder.binding.root.rootView as View).context
 
         Glide.with(context)
-            .load(items[position].url)
+            .load(items[position].imageLocalUri)
             .placeholder(R.drawable.background_image_placeholder)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(holder.binding.image)

@@ -31,12 +31,12 @@ class RepositoryImpl @Inject constructor(
     override suspend fun likeCat(cat: CatRemote) {
         val uri = imageManager.saveImage(cat.url)
         // Fixme: use mapper
-        val catEntity = CatEntity(url = uri.toString())
+        val catEntity = CatEntity(imageLocalUri = uri.toString())
         dao.likeCat(catEntity)
     }
 
     override suspend fun removeCatLike(cat: CatEntity) {
         dao.deleteCat(cat)
-        imageManager.deleteImage(Uri.parse(cat.url))
+        imageManager.deleteImage(Uri.parse(cat.imageLocalUri))
     }
 }

@@ -7,4 +7,4 @@ import androidx.room.PrimaryKey
 data class CatEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
-    var url: String)
+    var imageLocalUri: String)

@@ -6,6 +6,6 @@ import com.alexandr7035.swipecat.data.remote.CatRemote
 
 class CatRemoteToLocalMapper: Mapper<CatRemote, CatEntity> {
     override fun transform(data: CatRemote): CatEntity {
-        return CatEntity(url = data.url)
+        return CatEntity(imageLocalUri = data.url)
     }
 }
