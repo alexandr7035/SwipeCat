@@ -7,6 +7,8 @@ import com.alexandr7035.swipecat.data.CatRemoteToLocalMapper
 import com.alexandr7035.swipecat.data.Repository
 import com.alexandr7035.swipecat.data.RepositoryImpl
 import com.alexandr7035.swipecat.data.local.CatsDB
+import com.alexandr7035.swipecat.data.local.ImageManager
+import com.alexandr7035.swipecat.data.local.ImageManagerImpl
 import com.alexandr7035.swipecat.data.local.LikedCatsDao
 import com.alexandr7035.swipecat.data.remote.RandomCatProvider
 import com.alexandr7035.swipecat.data.remote.RandomCatProviderImpl
@@ -54,9 +56,15 @@ class AppModule {
     fun provideRepository(
         catsProvider: RandomCatProvider,
         dao: LikedCatsDao,
+        imageManager: ImageManager,
         mapper: CatRemoteToLocalMapper): Repository {
+        return RepositoryImpl(catsProvider, dao, imageManager, mapper)
+    }
 
-        return RepositoryImpl(catsProvider, dao, mapper)
+    @Provides
+    @Singleton
+    fun provideManager(application: Application): ImageManager {
+        return ImageManagerImpl(application)
     }
 
     @Provides
