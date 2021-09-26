@@ -1,6 +1,6 @@
 package com.alexandr7035.swipecat.data
 
-import com.alexandr7035.swipecat.app_core.Mapper
+import com.alexandr7035.swipecat.core.Mapper
 import com.alexandr7035.swipecat.data.local.CatEntity
 import com.alexandr7035.swipecat.data.remote.CatRemote
 

@@ -1,14 +1,13 @@
-package com.alexandr7035.swipecat
+package com.alexandr7035.swipecat.ui
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import com.alexandr7035.swipecat.app_core.Navigation
-import com.alexandr7035.swipecat.cats.CatsFragment
+import com.alexandr7035.swipecat.R
+import com.alexandr7035.swipecat.core.Navigation
+import com.alexandr7035.swipecat.ui.cat_swiper.CatsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,7 +27,8 @@ class MainActivity : AppCompatActivity() {
         navigation = Navigation(
             fragmentManager = supportFragmentManager,
             startDestination = CatsFragment(),
-            hostFragmentId = R.id.fragmentsHost)
+            hostFragmentId = R.id.fragmentsHost
+        )
 
         navigation.navigateStart()
     }

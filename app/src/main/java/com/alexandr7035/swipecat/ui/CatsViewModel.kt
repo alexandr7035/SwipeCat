@@ -1,4 +1,4 @@
-package com.alexandr7035.swipecat.cats
+package com.alexandr7035.swipecat.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

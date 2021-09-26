@@ -1,4 +1,4 @@
-package com.alexandr7035.swipecat.liked
+package com.alexandr7035.swipecat.ui.liked_cats
 
 import android.view.LayoutInflater
 import android.view.View

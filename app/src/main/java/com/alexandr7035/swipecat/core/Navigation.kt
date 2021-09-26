@@ -1,4 +1,4 @@
-package com.alexandr7035.swipecat.app_core
+package com.alexandr7035.swipecat.core
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

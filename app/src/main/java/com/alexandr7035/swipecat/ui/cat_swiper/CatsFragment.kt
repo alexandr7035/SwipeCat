@@ -1,4 +1,4 @@
-package com.alexandr7035.swipecat.cats
+package com.alexandr7035.swipecat.ui.cat_swiper
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
-import com.alexandr7035.swipecat.MainActivity
+import com.alexandr7035.swipecat.ui.MainActivity
 import com.alexandr7035.swipecat.R
 import com.alexandr7035.swipecat.data.remote.CatRemote
 import com.alexandr7035.swipecat.databinding.FragmentCatsBinding
-import com.alexandr7035.swipecat.liked.LikedCatsFragment
+import com.alexandr7035.swipecat.ui.CatsViewModel
+import com.alexandr7035.swipecat.ui.liked_cats.LikedCatsFragment
 import com.yuyakaido.android.cardstackview.*
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber

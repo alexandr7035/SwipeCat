@@ -1,4 +1,4 @@
-package com.alexandr7035.swipecat.liked
+package com.alexandr7035.swipecat.ui.liked_cats
 
 import android.content.Intent
 import android.net.Uri
@@ -12,9 +12,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexandr7035.swipecat.BuildConfig
-import com.alexandr7035.swipecat.MainActivity
+import com.alexandr7035.swipecat.ui.MainActivity
 import com.alexandr7035.swipecat.R
-import com.alexandr7035.swipecat.cats.CatsViewModel
+import com.alexandr7035.swipecat.ui.CatsViewModel
 import com.alexandr7035.swipecat.data.local.CatEntity
 import com.alexandr7035.swipecat.databinding.FragmentLikedCatsBinding
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,8 +1,7 @@
-package com.alexandr7035.swipecat.app_core
+package com.alexandr7035.swipecat.core
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View.MeasureSpec
 import androidx.appcompat.widget.AppCompatImageView
 
 class SquareImageView: AppCompatImageView {

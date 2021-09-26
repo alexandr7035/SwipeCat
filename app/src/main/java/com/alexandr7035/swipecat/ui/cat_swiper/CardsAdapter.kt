@@ -1,4 +1,4 @@
-package com.alexandr7035.swipecat.cats
+package com.alexandr7035.swipecat.ui.cat_swiper
 
 import android.view.LayoutInflater
 import android.view.View
