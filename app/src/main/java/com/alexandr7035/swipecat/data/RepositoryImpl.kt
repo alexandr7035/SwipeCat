@@ -20,8 +20,8 @@ class RepositoryImpl @Inject constructor(
     private val imageManager: ImageManager,
     private val catsMapper: CatRemoteToLocalMapper): Repository {
 
-    override suspend fun getRandomCats(number: Int): List<CatRemote> {
-        return catsProvider.getRandomCats(number)
+    override suspend fun getRandomCats(): List<CatRemote> {
+        return catsProvider.getRandomCats()
     }
 
     override fun getLikedCatsLiveData(): LiveData<List<CatEntity>> {

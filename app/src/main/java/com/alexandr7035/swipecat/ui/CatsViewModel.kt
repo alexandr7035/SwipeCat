@@ -23,9 +23,9 @@ class CatsViewModel @Inject constructor(
     private val catsProvider = RandomCatProviderImpl()
     private val catsLiveData = MutableLiveData<List<CatRemote>>()
 
-    fun fetchCats(number: Int) {
+    fun fetchCats() {
         viewModelScope.launch(Dispatchers.IO) {
-            catsLiveData.postValue(catsProvider.getRandomCats(number))
+            catsLiveData.postValue(catsProvider.getRandomCats())
         }
     }
 

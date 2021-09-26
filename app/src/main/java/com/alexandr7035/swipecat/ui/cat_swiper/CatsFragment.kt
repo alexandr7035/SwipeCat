@@ -20,8 +20,6 @@ import timber.log.Timber
 @AndroidEntryPoint
 class CatsFragment : Fragment(), CardStackListener {
 
-    private val defaultCardsNumber = 50
-
     private val viewModel by viewModels<CatsViewModel>()
     private var binding: FragmentCatsBinding? = null
 
@@ -60,7 +58,7 @@ class CatsFragment : Fragment(), CardStackListener {
 
         // Action buttons
         binding?.refreshButton?.setOnClickListener {
-            viewModel.fetchCats(defaultCardsNumber)
+            viewModel.fetchCats()
         }
 
         binding?.likeButton?.setOnClickListener {
@@ -91,7 +89,7 @@ class CatsFragment : Fragment(), CardStackListener {
         }
 
         // Fetch on start
-        viewModel.fetchCats(defaultCardsNumber)
+        viewModel.fetchCats()
     }
 
     private fun setupCardStackView() {

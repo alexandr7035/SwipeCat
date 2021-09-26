@@ -5,17 +5,18 @@ import kotlin.math.floor
 class RandomCatProviderImpl: RandomCatProvider {
 
     private val URL = "https://d2ph5fj80uercy.cloudfront.net"
+    private val catsListSize = 100
 
     override suspend fun getRandomCat(): CatRemote {
         val url = getRandomCatUrl()
         return CatRemote(url = url)
     }
 
-    override suspend fun getRandomCats(listSize: Int): List<CatRemote> {
+    override suspend fun getRandomCats(): List<CatRemote> {
 
         val cats = ArrayList<CatRemote>()
 
-        for (i in 1..listSize) {
+        for (i in 1..catsListSize) {
             cats.add(getRandomCat())
         }
 

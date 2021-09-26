@@ -5,7 +5,7 @@ import com.alexandr7035.swipecat.data.local.CatEntity
 import com.alexandr7035.swipecat.data.remote.CatRemote
 
 interface Repository {
-    suspend fun getRandomCats(number: Int): List<CatRemote>
+    suspend fun getRandomCats(): List<CatRemote>
 
     fun getLikedCatsLiveData(): LiveData<List<CatEntity>>
 
