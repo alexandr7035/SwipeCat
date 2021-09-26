@@ -15,6 +15,6 @@ interface LikedCatsDao {
     @Delete
     fun deleteCat(cat: CatEntity)
 
-    @Query("select * from liked_cats")
+    @Query("select * from liked_cats order by id desc")
     fun getLikedCatsLiveData(): LiveData<List<CatEntity>>
 }
