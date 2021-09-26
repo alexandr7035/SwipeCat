@@ -145,8 +145,8 @@ class LikedCatsFragment: Fragment(), LikedCatsAdapter.RecyclerItemClickListener 
 
         intent.putExtra(Intent.EXTRA_STREAM, uri)
 
-        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_image_text, BuildConfig.VERSION_NAME));
-        startActivity(Intent.createChooser(intent, getString(R.string.share_dialog_text)));
+        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_image_text, BuildConfig.VERSION_NAME))
+        startActivity(Intent.createChooser(intent, getString(R.string.share_dialog_text)))
     }
 
     override fun onDestroyView() {

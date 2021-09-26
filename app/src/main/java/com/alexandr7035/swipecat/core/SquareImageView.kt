@@ -17,13 +17,13 @@ class SquareImageView: AppCompatImageView {
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
         if (widthMode == MeasureSpec.EXACTLY && heightMode != MeasureSpec.EXACTLY) {
-            setMeasuredDimension(widthSize, widthSize);
+            setMeasuredDimension(widthSize, widthSize)
         }
         else if(heightMode == MeasureSpec.EXACTLY && widthMode != MeasureSpec.EXACTLY) {
-            setMeasuredDimension(heightSize, heightSize);
+            setMeasuredDimension(heightSize, heightSize)
         }
         else {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         }
     }
 }
