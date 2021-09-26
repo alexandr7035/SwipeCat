@@ -2,6 +2,7 @@ package com.alexandr7035.swipecat.data
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import com.alexandr7035.swipecat.data.local.CatEntity
 import com.alexandr7035.swipecat.data.local.ImageManager
@@ -36,5 +37,6 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun removeCatLike(cat: CatEntity) {
         dao.deleteCat(cat)
+        imageManager.deleteImage(Uri.parse(cat.url))
     }
 }

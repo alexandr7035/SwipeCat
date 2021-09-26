@@ -41,8 +41,12 @@ class ImageManagerImpl @Inject constructor(private val application: Application)
 
     }
 
-    override fun getImage(uri: Uri) {
+    override fun deleteImage(uri: Uri) {
+        Timber.tag("IMAGE_MANAGER").d("delete ${uri.path}")
 
+        if (uri.path != null) {
+            File(uri.path!!).delete()
+        }
     }
 
 }
