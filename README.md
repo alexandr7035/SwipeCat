@@ -1,5 +1,5 @@
 ### SwipeCat
-An android app displaying neuro-generated cats from https://thesecatsdonotexist.com/
+An android app displaying neural generated cats from https://thesecatsdonotexist.com/
 
 <img src="doc/logo.png" width="20%"/>
 
