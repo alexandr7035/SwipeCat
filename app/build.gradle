@@ -12,6 +12,15 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 android {
     compileSdk 30
 
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
     defaultConfig {
         applicationId "com.alexandr7035.swipecat"
         minSdk 21
@@ -24,8 +33,16 @@ android {
 
     buildTypes {
         release {
+            signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            signingConfig signingConfigs.config
+            applicationIdSuffix ".debug"
+            debuggable true
+            versionNameSuffix ".debug"
         }
     }
     compileOptions {
@@ -40,14 +57,7 @@ android {
         viewBinding true
     }
 
-    signingConfigs {
-        config {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-        }
-    }
+
 }
 
 dependencies {
