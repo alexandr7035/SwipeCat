@@ -12,8 +12,8 @@ An android app displaying neural generated cats from https://thesecatsdonotexist
 
 ### Features
 - List cats with Tinder-like cards.
-- Swipe right to add the cat to favourites.
-- Share a cat from favourites by clicking on the picture.
+- Swipe right to add the cat to favorites.
+- Share a cat from favorites by clicking on the picture.
 
 ### Technology notes
 - Single activity with fragments. No navigation lib is used in order to practice with FragmentManager.
