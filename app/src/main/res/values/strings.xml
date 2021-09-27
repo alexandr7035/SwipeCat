@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SwipeCat</string>
+    <string name="cards_number">%1$d / %2$d</string>
+
+    <!-- Shared prefs -->
+    <string name="shared_pref_likes_recycler_mode">likes_recycler_mode</string>
+    <string name="shared_pref_likes_recycler_mode_linear">likes_recycler_mode_linear</string>
+    <string name="shared_pref_likes_recycler_mode_grid">likes_recycler_mode_grid</string>
+
+    <string name="share_dialog_text">Share via:</string>
+    <string name="share_image_text">Shared with SwipeCat %1s.</string>
+</resources>
