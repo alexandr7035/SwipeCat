@@ -15,6 +15,9 @@
 
         <item name="toolbarNavigationButtonStyle">@style/ToolbarNavIconStyle</item>
 
+        <item name="colorWindowGradientStart">#FE673AB7</item>
+        <item name="colorWindowGradientEnd">#FE9C27B0</item>
+
     </style>
 
     <style name="FabAction" parent="Widget.Design.FloatingActionButton">

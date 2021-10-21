@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.navigationBarColor = Color.TRANSPARENT
         window.statusBarColor = Color.TRANSPARENT
-        window.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.background_primary))
+        window.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.background_window))
 
         navigation = Navigation(
             fragmentManager = supportFragmentManager,
