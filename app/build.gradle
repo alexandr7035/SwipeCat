@@ -10,7 +10,7 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdk 30
+    compileSdk 33
 
     signingConfigs {
         config {
@@ -24,9 +24,9 @@ android {
     defaultConfig {
         applicationId "com.alexandr7035.swipecat"
         minSdk 21
-        targetSdk 30
-        versionCode 100
-        versionName "1.0"
+        targetSdk 33
+        versionCode 200
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
