@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_primary">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_primary">
 
     <TextView
         android:id="@+id/cardsCountView"
         style="@style/catsCounterStyle"
-        android:text="10 / 50"
+        tools:text="10 / 50"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -43,12 +44,11 @@
 
         <TextView
             android:id="@+id/likesCountView"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"/>
+            tools:text="0"
+            style="@style/catsCounterStyle"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 
